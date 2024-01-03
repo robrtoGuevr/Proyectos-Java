@@ -13,6 +13,13 @@ public class FormBook extends JFrame {
     ServiceBook serviceBook;
     private JPanel panel;
     private JTable bookTable;
+    private JTextField libroTexto;
+    private JTextField autorTexto;
+    private JTextField precioTexto;
+    private JTextField existenciasTexto;
+    private JButton agregarButton;
+    private JButton modificarButton;
+    private JButton eliminarButton;
     private DefaultTableModel tableModel;
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -20,6 +27,9 @@ public class FormBook extends JFrame {
     public FormBook(ServiceBook serviceBook){
         this.serviceBook = serviceBook;
         startForm();
+        agregarButton.addActionListener(e -> {
+
+        });
     }
 
     private void startForm(){
