@@ -1,5 +1,6 @@
 package gm.tienda_libros.view;
 
+import gm.tienda_libros.model.Book;
 import gm.tienda_libros.service.ServiceBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,9 +28,7 @@ public class FormBook extends JFrame {
     public FormBook(ServiceBook serviceBook){
         this.serviceBook = serviceBook;
         startForm();
-        agregarButton.addActionListener(e -> {
-
-        });
+        agregarButton.addActionListener(e -> addBook());
     }
 
     private void startForm(){
@@ -44,6 +43,39 @@ public class FormBook extends JFrame {
         setLocation(x,y);
     }
 
+    private void addBook(){
+        //Leer los valores del formulario
+        if(libroTexto.getText().equals("")){
+            mostrarMensaje("Proporciona el nombre del libro");
+            libroTexto.requestFocusInWindow();
+            return;
+        }
+        var nameBook = libroTexto.getText();
+        var writer = autorTexto.getText();
+        var price = Double.parseDouble(precioTexto.getText());
+        var stock = Integer.parseInt(existenciasTexto.getText());
+        //Crear el objeto libro
+        var book = new Book();
+        book.setNameBook(nameBook);
+        book.setWriter(writer);
+        book.setPrice(price);
+        book.setStock(stock);
+        this.serviceBook.saveBook(book);
+        mostrarMensaje("Se agrego el libro...");
+        limpiarForm();
+        readBooks();
+    }
+
+    private void limpiarForm(){
+        libroTexto.setText("");
+        autorTexto.setText("");
+        precioTexto.setText("");
+        existenciasTexto.setText("");
+    }
+
+    private void mostrarMensaje(String mensaje){
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
     private void createUIComponents() {
         this.tableModel = new DefaultTableModel(0,5);
         String[] caberceros = {"Id", "Libro", "Autor", "Precio", "Existencias"};
