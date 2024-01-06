@@ -42,6 +42,7 @@ public class FormBook extends JFrame {
             }
         });
         modificarButton.addActionListener(e -> updateBook());
+        eliminarButton.addActionListener(e -> deleteBook() );
     }
 
     private void startForm(){
@@ -119,6 +120,20 @@ public class FormBook extends JFrame {
         }
 
     }
+    private void deleteBook(){
+        var renglon = bookTable.getSelectedRow();
+        if(renglon!=-1){
+            String idBook = bookTable.getModel().getValueAt(renglon,0).toString();
+            var book = new Book();
+            book.setIdBook(Integer.parseInt(idBook));
+            serviceBook.deleteBook(book);
+            mostrarMensaje("Libro: "+idBook+" eliminado...");
+            limpiarForm();
+            readBooks();
+        }else {
+            mostrarMensaje("No se ha seleccionado ningun libro...");
+        }
+    }
     private void limpiarForm(){
         libroTexto.setText("");
         autorTexto.setText("");
@@ -133,13 +148,21 @@ public class FormBook extends JFrame {
         idTexto = new JTextField("");
         idTexto.setVisible(false);
 
-        this.tableModel = new DefaultTableModel(0,5);
+        this.tableModel = new DefaultTableModel(0,5){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
         String[] caberceros = {"Id", "Libro", "Autor", "Precio", "Existencias"};
         tableModel.setColumnIdentifiers(caberceros);
 
         //instanciar objeto Jtable
         this.bookTable = new JTable(tableModel);
         readBooks();
+
+        //Evitar que se seleccionen varios registros
+        bookTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     private void readBooks(){
