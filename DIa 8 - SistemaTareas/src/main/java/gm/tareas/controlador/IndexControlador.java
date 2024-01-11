@@ -42,6 +42,8 @@ public class IndexControlador implements Initializable {
     private TextField responsableTexto;
     @FXML
     private TextField estatusTexto;
+    @FXML
+    private Integer idTareaInterno;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,7 +83,10 @@ public class IndexControlador implements Initializable {
     public void cargarTareaForm(){
         var tarea = tareaTabla.getSelectionModel().getSelectedItem();
         if(tarea != null){
-            
+            idTareaInterno = tarea.getIdTarea();
+            nombreTareaTexto.setText(tarea.getNombreTarea());
+            responsableTexto.setText(tarea.getResponsable());
+            estatusTexto.setText(tarea.getEstatus());
         }
     }
 
