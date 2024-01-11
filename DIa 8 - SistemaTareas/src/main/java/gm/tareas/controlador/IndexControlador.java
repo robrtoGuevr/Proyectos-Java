@@ -74,6 +74,7 @@ public class IndexControlador implements Initializable {
         }else{
             var tarea = new Tarea();
             recolectarDatosForm(tarea);
+            tarea.setIdTarea(null);
             tareaServicio.guardarTarea(tarea);
             mostrarMensaje("Informacion", "Tarea Agregada");
             limpiarForm();
@@ -89,6 +90,36 @@ public class IndexControlador implements Initializable {
             estatusTexto.setText(tarea.getEstatus());
         }
     }
+    public void modificarTarea(){
+
+        if(idTareaInterno == null){
+            mostrarMensaje("Informacion","Debe seleccionar una tarea");
+            return;
+        }
+        if(nombreTareaTexto.getText().isEmpty()){
+            mostrarMensaje("Error de validacion", "Debe proporcionar una tarea");
+            nombreTareaTexto.requestFocus();
+            return;
+        }
+        var tarea = new Tarea();
+        recolectarDatosForm(tarea);
+        tareaServicio.guardarTarea(tarea);
+        mostrarMensaje("Informacion", "Tarea modificada");
+        limpiarForm();
+        listarTareas();
+    }
+    public void eliminarTarea(){
+        var tarea = tareaTabla.getSelectionModel().getSelectedItem();
+        if(tarea!= null){
+            logger.info("Resgistro a eliminar: "+tarea.toString());
+            tareaServicio.eliminarTarea(tarea);
+            mostrarMensaje("Informacion", "Tarea eliminada: "+tarea.getIdTarea() );
+            limpiarForm();
+            listarTareas();
+        }else{
+            mostrarMensaje("Error", "No se ha seleccionado ninguna tarea");
+        }
+    }
 
     private void mostrarMensaje(String titulo, String mensaje){
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
@@ -97,12 +128,15 @@ public class IndexControlador implements Initializable {
         alerta.setContentText(mensaje);
         alerta.showAndWait();
     }
-    private void limpiarForm(){
+    public void limpiarForm(){
+        idTareaInterno = null;
         nombreTareaTexto.clear();
         responsableTexto.clear();
         estatusTexto.clear();
     }
     private void recolectarDatosForm(Tarea tarea){
+        if(idTareaInterno != null)
+            tarea.setIdTarea(idTareaInterno);
         tarea.setNombreTarea(nombreTareaTexto.getText());
         tarea.setResponsable(responsableTexto.getText());
         tarea.setEstatus(estatusTexto.getText());

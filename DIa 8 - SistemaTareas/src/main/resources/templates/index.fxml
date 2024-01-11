@@ -42,9 +42,9 @@
       <AnchorPane layoutX="17.0" layoutY="343.0" prefHeight="90.0" prefWidth="705.0">
          <children>
             <Button fx:id="agregarBoton" layoutX="39.0" layoutY="33.0" mnemonicParsing="false" onAction="#agregarTarea" style="-fx-background-color: #1d3557;" text="Agregar" textFill="#f1faee" />
-            <Button fx:id="modificarBoton" layoutX="217.0" layoutY="33.0" mnemonicParsing="false" style="-fx-background-color: #1d3557;" text="Modificar" textFill="#f1faee" />
-            <Button fx:id="eliminarBoton" layoutX="421.0" layoutY="33.0" mnemonicParsing="false" style="-fx-background-color: #e63946;" text="Eliminar" textFill="#f1faee" />
-            <Button fx:id="limpiarBoton" layoutX="572.0" layoutY="33.0" mnemonicParsing="false" style="-fx-background-color: #ffd60a;" text="Limpiar Form" />
+            <Button fx:id="modificarBoton" layoutX="217.0" layoutY="33.0" mnemonicParsing="false" onAction="#modificarTarea" style="-fx-background-color: #1d3557;" text="Modificar" textFill="#f1faee" />
+            <Button fx:id="eliminarBoton" layoutX="421.0" layoutY="33.0" mnemonicParsing="false" onAction="#eliminarTarea" style="-fx-background-color: #e63946;" text="Eliminar" textFill="#f1faee" />
+            <Button fx:id="limpiarBoton" layoutX="572.0" layoutY="33.0" mnemonicParsing="false" onAction="#limpiarForm" style="-fx-background-color: #ffd60a;" text="Limpiar Form" />
          </children>
       </AnchorPane>
    </children>
