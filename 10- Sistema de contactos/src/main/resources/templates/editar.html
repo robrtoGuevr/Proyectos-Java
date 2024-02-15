@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragmentos/cabecero::cabecero-seccion(titulo='Agregar')}"></head>
+<head th:replace="~{fragmentos/cabecero::cabecero-seccion(titulo='Editar contacto')}"></head>
 
 <body>
 <!--Div barra de navegacion-->
@@ -12,22 +12,23 @@
     </div>
 
     <div class="container">
-        <form action="/agregar" modelAttribute="contactoForma" method="post">
+        <form action="/editar" th:object="${contacto}" method="post">
+            <input type="hidden" th:field="*{idContacto}">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required="true">
+                <input type="text" class="form-control" id="nombre" name="nombre" required="true" th:field="*{nombre}">
             </div>
             <div class="mb-3">
                 <label for="celular" class="form-label">Celular</label>
-                <input type="text" class="form-control" id="celular" name="celular" required="true">
+                <input type="text" class="form-control" id="celular" name="celular" required="true" th:field="*{celular}">
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" name="email" required="true">
+                <input type="text" class="form-control" id="email" name="email" required="true" th:field="*{email}">
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-warning btn-sm me-3">Agregar</button>
-                <a href="/" class="btn btn-danger btn-sm">Regresar</a>
+                <button type="submit" class="btn btn-warning btn-sm me-3">Editar</button>
+                <a href="/static" class="btn btn-danger btn-sm">Regresar</a>
 
 
             </div>
